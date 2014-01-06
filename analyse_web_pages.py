@@ -46,7 +46,7 @@ class WebPageAnalysis(object):
                 print href
                 pic_id = url[len("/shopping/product/"):url.index('?')]
                 pic_url = href.img['src']
-                pics_url_list.append(dict(dict(zip([pic_id], [pic_url]))))
+                pics_url_list.append(dict(zip([pic_id], [pic_url])))
             self.queue.put_nowait(pics_url_list)
 
     def run(self):
