@@ -17,7 +17,7 @@ class MyThread(threading.Thread):
         self.res=apply(self.func, self.args)
 
 def download_pics(path, queue):
-    while not queue.empty():
+    while True:
         temp = queue.get()
         tile = temp[0].keys()[0]
         new_dir = os.path.join(path, tile)
@@ -27,7 +27,6 @@ def download_pics(path, queue):
             key = url.keys()[0]
             pic_name = ''.join((new_dir, '\\', key, '.jpg'))
             urllib.urlretrieve(url[key], pic_name)
-        queue.task_done()
 
 def main():
     q = Queue()
