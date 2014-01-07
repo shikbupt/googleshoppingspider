@@ -13,7 +13,7 @@ class WebPageAnalysis(object):
         self.queue = queue
 
     def download(self, url):
-        #不同'user-agent'对返回的结果有影响
+        #different 'user-agent' has different return web
         heads = {'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Charset':'GB2312,utf-8;q=0.7,*;q=0.7',
         'Accept-Language':'zh-cn,zh;q=0.5',
@@ -43,7 +43,6 @@ class WebPageAnalysis(object):
             tag = self.soup.find_all('a', class_="vs-url")
             for href in tag:
                 url = href['href']
-                print href
                 pic_id = url[len("/shopping/product/"):url.index('?')]
                 pic_url = href.img['src']
                 pics_url_list.append(dict(zip([pic_id], [pic_url])))
@@ -52,6 +51,9 @@ class WebPageAnalysis(object):
     def run(self):
         self.get_pics_pages()
         self.get_pic_url()
+
+    def __call__(self):
+        self.run()
                 
 def main():
     url = 'http://www.google.co.uk/search?q=shoes&tbm=shop&ei=HAGYUujUEIfvkQWPTw&ved=0CAMQyBAoAQ&pshpl=1&pshplp=2&num=10'
