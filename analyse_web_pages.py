@@ -40,11 +40,11 @@ class WebPageAnalysis(object):
             self.download('http://www.google.co.uk/'+self.pics_page[key])
             tag = self.soup.find_all('img', src=True, limit=2)
             pics_url_list = [dict(zip([key], [tag[1]['src']]))]
-            tag = self.soup.find_all('a', class_="vs-url")
+            tag = self.soup.find_all('div', class_="vs-item")
             for href in tag:
-                url = href['href']
+                url = href.a['href']
                 pic_id = url[len("/shopping/product/"):url.index('?')]
-                pic_url = href.img['src']
+                pic_url = href.a.img['src']
                 pics_url_list.append(dict(zip([pic_id], [pic_url])))
             self.queue.put_nowait(pics_url_list)
 
